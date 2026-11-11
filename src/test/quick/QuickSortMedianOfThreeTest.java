@@ -14,7 +14,7 @@ public class QuickSortMedianOfThreeTest extends QuickSortTest {
 
   @Override
   protected void sort(int[] a) {
-    QuickSort.quicksortMedianOfThree(a);
+    QuickSortMedianOfThree.quicksort(a);
   }
 
   // With a poor pivot on sorted input, the recursion would go once per
@@ -67,10 +67,10 @@ public class QuickSortMedianOfThreeTest extends QuickSortTest {
   }
 
   // Calls the private static method medianIndex(int[], int, int, int) of
-  // QuickSort on indices 0, 1, and 2 of a.
+  // QuickSortMedianOfThree on indices 0, 1, and 2 of a.
   private static int callMedianIndex(int[] a) {
     try {
-      Method method = QuickSort.class.getDeclaredMethod("medianIndex", int[].class, int.class, int.class, int.class);
+      Method method = QuickSortMedianOfThree.class.getDeclaredMethod("medianIndex", int[].class, int.class, int.class, int.class);
       method.setAccessible(true);
       return (int) method.invoke(null, a, 0, 1, 2);
     } catch (ReflectiveOperationException e) {

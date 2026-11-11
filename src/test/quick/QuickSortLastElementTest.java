@@ -13,7 +13,7 @@ public class QuickSortLastElementTest extends QuickSortTest {
 
   @Override
   protected void sort(int[] a) {
-    QuickSort.quicksort(a);
+    QuickSortLastElement.quicksort(a);
   }
 
   @Test
@@ -41,10 +41,11 @@ public class QuickSortLastElementTest extends QuickSortTest {
     assertEquals(4, callPartition(a, 0, 8));
   }
 
-  // Calls the private static method partition(int[], int, int) of QuickSort.
+  // Calls the private static method partition(int[], int, int) of
+  // QuickSortLastElement.
   private static int callPartition(int[] a, int lo, int hi) {
     try {
-      Method method = QuickSort.class.getDeclaredMethod("partition", int[].class, int.class, int.class);
+      Method method = QuickSortLastElement.class.getDeclaredMethod("partition", int[].class, int.class, int.class);
       method.setAccessible(true);
       return (int) method.invoke(null, a, lo, hi);
     } catch (ReflectiveOperationException e) {
