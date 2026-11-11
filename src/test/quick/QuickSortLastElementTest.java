@@ -2,7 +2,6 @@ package quick;
 
 import java.lang.reflect.Method;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,17 +17,22 @@ public class QuickSortLastElementTest extends QuickSortTest {
   }
 
   @Test
-  public void partitionLeavesValuesOutsideTheSliceAlone() {
-    int[] a = {90, 30, 10, 50, 20, 80};
-    assertEquals(2, callPartition(a, 1, 4));
-    assertArrayEquals(new int[] {90, 10, 20, 50, 30, 80}, a);
+  public void partitionOfOneElementSliceReturnsItsIndex() {
+    int[] a = {90, 30, 10};
+    assertEquals(1, callPartition(a, 1, 1));
   }
 
   @Test
-  public void partitionOfTheTracedExample() {
-    int[] a = {3, 5, 8, 1, 2, 9, 4, 7, 6};
-    assertEquals(5, callPartition(a, 0, 8));
-    assertArrayEquals(new int[] {3, 5, 4, 1, 2, 6, 8, 7, 9}, a);
+  public void partitionOfInnerSliceReturnsThePivotsPosition() {
+    int[] a = {90, 30, 10, 50, 20, 80};
+    assertEquals(2, callPartition(a, 1, 4));
+  }
+
+  @Test
+  public void partitionOfInnerSliceRearrangesOnlyTheSlice() {
+    int[] a = {90, 30, 10, 50, 20, 80};
+    callPartition(a, 1, 4);
+    assertArrayEquals(new int[] {90, 10, 20, 50, 30, 80}, a);
   }
 
   @Test

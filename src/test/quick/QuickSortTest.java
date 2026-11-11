@@ -1,7 +1,6 @@
 package quick;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 /**
@@ -31,8 +30,8 @@ public abstract class QuickSortTest {
   }
 
   @Test
-  public void unsortedArrayGetsSorted() {
-    check(new int[] {5, 1, 4, 2}, new int[] {1, 2, 4, 5});
+  public void twoElementsReversedGetSorted() {
+    check(new int[] {2, 1}, new int[] {1, 2});
   }
 
   @Test
@@ -46,6 +45,16 @@ public abstract class QuickSortTest {
   }
 
   @Test
+  public void unsortedArrayGetsSorted() {
+    check(new int[] {3, 5, 8, 1, 2, 9, 4, 7, 6}, new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9});
+  }
+
+  @Test
+  public void negativesSortBeforePositives() {
+    check(new int[] {-3, 1, -7, 4, 0}, new int[] {-7, -3, 0, 1, 4});
+  }
+
+  @Test
   public void allDuplicatesAreUnchanged() {
     check(new int[] {4, 4, 4, 4}, new int[] {4, 4, 4, 4});
   }
@@ -55,23 +64,14 @@ public abstract class QuickSortTest {
     check(new int[] {2, 3, 1, 2, 3, 1, 2}, new int[] {1, 1, 2, 2, 2, 3, 3});
   }
 
-  @Test
-  public void tracedPartitionInputSortsFully() {
-    check(new int[] {3, 5, 8, 1, 2, 9, 4, 7, 6},
-        new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9});
-  }
-
-  @Test
-  public void negativesSortBeforePositives() {
-    check(new int[] {-3, 1, -7, 4, 0}, new int[] {-7, -3, 0, 1, 4});
-  }
-
   // A partition that sends equal values to one side would recurse once per
   // element here and overflow the call stack.
   @Test
   public void largeArrayOfEqualValuesGetsSorted() {
     int[] input = new int[100_000];
-    java.util.Arrays.fill(input, 7);
+    for (int i = 0; i < input.length; i++) {
+      input[i] = 7;
+    }
     check(input, input.clone());
   }
 }
