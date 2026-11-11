@@ -1,22 +1,16 @@
 package quick;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Tests for the standalone whole-array partition. Two things are checked: the
- * exact result on the traced example from the notes, and the partition property
- * on a range of inputs — everything left of the returned index is at most the
- * pivot, everything right of it is at least the pivot.
- */
+/** Tests for the whole-array partition. */
 public class PartitionTest {
 
-  // Checks the partition property: the returned index p holds the original
-  // pivot value (the last element), everything before p is <= a[p], and
-  // everything after p is >= a[p].
+  // Partitions a copy of input and checks the partition property: the pivot
+  // (the last element) sits at the returned index p, every value before p is
+  // at most the pivot, and every value after p is at least the pivot.
   private void checkProperty(int[] input) {
     int pivot = input[input.length - 1];
     int[] a = input.clone();
@@ -24,25 +18,23 @@ public class PartitionTest {
 
     assertEquals(pivot, a[p], "pivot value should sit at the returned index");
     for (int i = 0; i < p; i++) {
-      assertTrue(a[i] <= a[p], "left side should be <= pivot at index " + i);
+      assertTrue(a[i] <= pivot, "left side should be <= pivot at index " + i);
     }
     for (int i = p + 1; i < a.length; i++) {
-      assertTrue(a[i] >= a[p], "right side should be >= pivot at index " + i);
+      assertTrue(a[i] >= pivot, "right side should be >= pivot at index " + i);
     }
-  }
-
-  @Test
-  public void tracedExampleFromTheNotes() {
-    int[] a = {3, 5, 8, 1, 2, 9, 4, 7, 6};
-    int p = Partition.partition(a);
-    assertEquals(5, p);
-    assertArrayEquals(new int[] {3, 5, 4, 1, 2, 6, 8, 7, 9}, a);
   }
 
   @Test
   public void singleElementReturnsZero() {
     int[] a = {7};
     assertEquals(0, Partition.partition(a));
+  }
+
+  @Test
+  public void singleElementStaysPut() {
+    int[] a = {7};
+    Partition.partition(a);
     assertArrayEquals(new int[] {7}, a);
   }
 
@@ -67,13 +59,26 @@ public class PartitionTest {
   }
 
   @Test
-  public void allEqualValues() {
-    checkProperty(new int[] {4, 4, 4, 4});
+  public void returnsThePivotsSortedPosition() {
+    int[] a = {3, 5, 8, 1, 2, 9, 4, 7, 6};
+    assertEquals(5, Partition.partition(a));
+  }
+
+  @Test
+  public void swapsOutOfPlacePairsAndThenPlacesThePivot() {
+    int[] a = {3, 5, 8, 1, 2, 9, 4, 7, 6};
+    Partition.partition(a);
+    assertArrayEquals(new int[] {3, 5, 4, 1, 2, 6, 8, 7, 9}, a);
   }
 
   @Test
   public void withDuplicatesOfThePivot() {
     checkProperty(new int[] {6, 2, 6, 1, 6});
+  }
+
+  @Test
+  public void allEqualValues() {
+    checkProperty(new int[] {4, 4, 4, 4});
   }
 
   // Both markers stop on values equal to the pivot, so equal values are
