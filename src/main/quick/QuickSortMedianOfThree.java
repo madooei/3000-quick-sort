@@ -1,36 +1,20 @@
 package quick;
 
-/** Quicksort, with the last element or the median of three as the pivot. */
-public final class QuickSort {
+/** Quicksort, with the median of three as the pivot. */
+public final class QuickSortMedianOfThree {
 
-  private QuickSort() {
+  private QuickSortMedianOfThree() {
     // This class should not be instantiated!
-  }
-
-  // Sorts a in ascending order, with the last element of each slice as the
-  // pivot. Assumes a is not null.
-  public static void quicksort(int[] a) {
-    quicksort(a, 0, a.length - 1);
   }
 
   // Sorts a in ascending order, with the median of the first, middle, and last
   // elements of each slice as the pivot. Assumes a is not null.
-  public static void quicksortMedianOfThree(int[] a) {
-    quicksortMedianOfThree(a, 0, a.length - 1);
+  public static void quicksort(int[] a) {
+    quicksort(a, 0, a.length - 1);
   }
 
   // Sorts a[lo..hi] in ascending order.
   private static void quicksort(int[] a, int lo, int hi) {
-    if (lo >= hi) {
-      return;                    // zero or one element: already sorted
-    }
-    int p = partition(a, lo, hi);
-    quicksort(a, lo, p - 1);     // sort the left side
-    quicksort(a, p + 1, hi);     // sort the right side
-  }
-
-  // Sorts a[lo..hi] in ascending order.
-  private static void quicksortMedianOfThree(int[] a, int lo, int hi) {
     if (lo >= hi) {
       return;
     }
@@ -38,8 +22,8 @@ public final class QuickSort {
     int m = medianIndex(a, lo, mid, hi);
     swap(a, m, hi);              // move the median-of-three pivot to the end
     int p = partition(a, lo, hi);
-    quicksortMedianOfThree(a, lo, p - 1);
-    quicksortMedianOfThree(a, p + 1, hi);
+    quicksort(a, lo, p - 1);
+    quicksort(a, p + 1, hi);
   }
 
   // Partitions a[lo..hi] around a[hi] and returns the pivot's final index.
