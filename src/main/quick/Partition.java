@@ -10,33 +10,33 @@ public final class Partition {
   // Partitions a around its last element and returns the pivot's final index.
   // Every value before that index is at most the pivot, and every value after
   // it is at least the pivot. Assumes a is not null and not empty.
-  public static int partition(int[] a) {
-    int n = a.length;
-    int pivot = a[n - 1];   // the last element is the pivot
-    int l = 0;              // left marker
-    int r = n - 2;          // right marker, just left of the pivot
+  public static int partition(int[] arr) {
+    int n = arr.length;
+    int pivot = n - 1;           // index of the pivot, the last element
+    int left = 0;                // left marker
+    int right = n - 2;           // right marker, just left of the pivot
 
-    while (l <= r) {
-      while (l <= r && a[l] < pivot) {
-        l++;                // step past values that belong on the left
+    while (left <= right) {
+      while (left <= right && arr[left] < arr[pivot]) {
+        left++;                  // step past values that belong on the left
       }
-      while (l <= r && a[r] > pivot) {
-        r--;                // step past values that belong on the right
+      while (left <= right && arr[right] > arr[pivot]) {
+        right--;                 // step past values that belong on the right
       }
-      if (l <= r) {
-        swap(a, l, r);      // swap the two values the markers stopped on
-        l++;
-        r--;
+      if (left <= right) {
+        swap(arr, left, right);  // swap the two values the markers stopped on
+        left++;
+        right--;
       }
     }
 
-    swap(a, l, n - 1);      // move the pivot between the two sides
-    return l;
+    swap(arr, left, pivot);      // move the pivot between the two sides
+    return left;
   }
 
-  private static void swap(int[] a, int i, int j) {
-    int temp = a[i];
-    a[i] = a[j];
-    a[j] = temp;
+  private static void swap(int[] arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
   }
 }

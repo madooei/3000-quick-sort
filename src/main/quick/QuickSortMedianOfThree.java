@@ -9,66 +9,66 @@ public final class QuickSortMedianOfThree {
 
   // Sorts a in ascending order, with the median of the first, middle, and last
   // elements of each slice as the pivot. Assumes a is not null.
-  public static void quicksort(int[] a) {
-    quicksort(a, 0, a.length - 1);
+  public static void quicksort(int[] arr) {
+    quicksort(arr, 0, arr.length - 1);
   }
 
-  // Sorts a[lo..hi] in ascending order.
-  private static void quicksort(int[] a, int lo, int hi) {
+  // Sorts arr[lo..hi] in ascending order.
+  private static void quicksort(int[] arr, int lo, int hi) {
     if (lo >= hi) {
       return;
     }
     int mid = lo + (hi - lo) / 2;
-    int m = medianIndex(a, lo, mid, hi);
-    swap(a, m, hi);              // move the median-of-three pivot to the end
-    int p = partition(a, lo, hi);
-    quicksort(a, lo, p - 1);
-    quicksort(a, p + 1, hi);
+    int median = medianIndex(arr, lo, mid, hi);
+    swap(arr, median, hi);       // move the median-of-three pivot to the end
+    int pivotIndex = partition(arr, lo, hi);
+    quicksort(arr, lo, pivotIndex - 1);
+    quicksort(arr, pivotIndex + 1, hi);
   }
 
-  // Partitions a[lo..hi] around a[hi] and returns the pivot's final index.
-  // Every value in a[lo..p-1] is at most the pivot, and every value in
-  // a[p+1..hi] is at least the pivot.
+  // Partitions arr[lo..hi] around arr[hi] and returns pivotIndex, the pivot's
+  // final index. Every value in arr[lo..pivotIndex-1] is at most the pivot,
+  // and every value in arr[pivotIndex+1..hi] is at least the pivot.
   // Pre: lo <= hi.
-  private static int partition(int[] a, int lo, int hi) {
-    int pivot = a[hi];   // the last element of the slice is the pivot
-    int l = lo;
-    int r = hi - 1;
+  private static int partition(int[] arr, int lo, int hi) {
+    int pivot = hi;       // index of the pivot, the last element of the slice
+    int left = lo;
+    int right = hi - 1;
 
-    while (l <= r) {
-      while (l <= r && a[l] < pivot) {
-        l++;
+    while (left <= right) {
+      while (left <= right && arr[left] < arr[pivot]) {
+        left++;
       }
-      while (l <= r && a[r] > pivot) {
-        r--;
+      while (left <= right && arr[right] > arr[pivot]) {
+        right--;
       }
-      if (l <= r) {
-        swap(a, l, r);
-        l++;
-        r--;
+      if (left <= right) {
+        swap(arr, left, right);
+        left++;
+        right--;
       }
     }
 
-    swap(a, l, hi);
-    return l;
+    swap(arr, left, pivot);
+    return left;
   }
 
-  // Returns the index (i, j, or k) of the median of a[i], a[j], and a[k].
-  private static int medianIndex(int[] a, int i, int j, int k) {
-    if (a[i] < a[j]) {
-      if (a[j] < a[k]) return j;        // a[i] < a[j] < a[k]
-      else if (a[i] < a[k]) return k;   // a[i] < a[k] <= a[j]
-      else return i;                    // a[k] <= a[i] < a[j]
+  // Returns the index (i, j, or k) of the median of arr[i], arr[j], and arr[k].
+  private static int medianIndex(int[] arr, int i, int j, int k) {
+    if (arr[i] < arr[j]) {
+      if (arr[j] < arr[k]) return j;       // arr[i] < arr[j] < arr[k]
+      else if (arr[i] < arr[k]) return k;  // arr[i] < arr[k] <= arr[j]
+      else return i;                       // arr[k] <= arr[i] < arr[j]
     } else {
-      if (a[i] < a[k]) return i;        // a[j] <= a[i] < a[k]
-      else if (a[j] < a[k]) return k;   // a[j] < a[k] <= a[i]
-      else return j;                    // a[k] <= a[j] <= a[i]
+      if (arr[i] < arr[k]) return i;       // arr[j] <= arr[i] < arr[k]
+      else if (arr[j] < arr[k]) return k;  // arr[j] < arr[k] <= arr[i]
+      else return j;                       // arr[k] <= arr[j] <= arr[i]
     }
   }
 
-  private static void swap(int[] a, int i, int j) {
-    int temp = a[i];
-    a[i] = a[j];
-    a[j] = temp;
+  private static void swap(int[] arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
   }
 }

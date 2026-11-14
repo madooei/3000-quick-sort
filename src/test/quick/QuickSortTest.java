@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 public abstract class QuickSortTest {
 
   // Calls the version under test.
-  protected abstract void sort(int[] a);
+  protected abstract void sort(int[] arr);
 
   // Sorts a copy of input and checks it against expected.
   private void check(int[] input, int[] expected) {
-    int[] a = input.clone();
-    sort(a);
-    assertArrayEquals(expected, a);
+    int[] arr = input.clone();
+    sort(arr);
+    assertArrayEquals(expected, arr);
   }
 
   @Test

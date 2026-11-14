@@ -13,21 +13,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class QuickSortMedianOfThreeTest extends QuickSortTest {
 
   @Override
-  protected void sort(int[] a) {
-    QuickSortMedianOfThree.quicksort(a);
+  protected void sort(int[] arr) {
+    QuickSortMedianOfThree.quicksort(arr);
   }
 
   // With a poor pivot on sorted input, the recursion would go once per
   // element deep here and overflow the call stack.
   @Test
   public void largeSortedArrayStaysSorted() {
-    int[] a = new int[100_000];
-    for (int i = 0; i < a.length; i++) {
-      a[i] = i;
+    int[] arr = new int[100_000];
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = i;
     }
-    int[] expected = a.clone();
-    sort(a);
-    assertArrayEquals(expected, a);
+    int[] expected = arr.clone();
+    sort(arr);
+    assertArrayEquals(expected, arr);
   }
 
   @Test
@@ -62,17 +62,17 @@ public class QuickSortMedianOfThreeTest extends QuickSortTest {
 
   @Test
   public void medianOfThreeEqualValuesIsOneOfTheIndices() {
-    int m = callMedianIndex(new int[] {5, 5, 5});
-    assertTrue(m >= 0 && m <= 2);
+    int index = callMedianIndex(new int[] {5, 5, 5});
+    assertTrue(index >= 0 && index <= 2);
   }
 
   // Calls the private static method medianIndex(int[], int, int, int) of
-  // QuickSortMedianOfThree on indices 0, 1, and 2 of a.
-  private static int callMedianIndex(int[] a) {
+  // QuickSortMedianOfThree on indices 0, 1, and 2 of arr.
+  private static int callMedianIndex(int[] arr) {
     try {
       Method method = QuickSortMedianOfThree.class.getDeclaredMethod("medianIndex", int[].class, int.class, int.class, int.class);
       method.setAccessible(true);
-      return (int) method.invoke(null, a, 0, 1, 2);
+      return (int) method.invoke(null, arr, 0, 1, 2);
     } catch (ReflectiveOperationException e) {
       throw new RuntimeException(e);
     }

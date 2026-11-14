@@ -9,33 +9,34 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PartitionTest {
 
   // Partitions a copy of input and checks the partition property: the pivot
-  // (the last element) sits at the returned index p, every value before p is
-  // at most the pivot, and every value after p is at least the pivot.
+  // (the last element) sits at the returned index pivotIndex, every value
+  // before pivotIndex is at most the pivot, and every value after pivotIndex
+  // is at least the pivot.
   private void checkProperty(int[] input) {
     int pivot = input[input.length - 1];
-    int[] a = input.clone();
-    int p = Partition.partition(a);
+    int[] arr = input.clone();
+    int pivotIndex = Partition.partition(arr);
 
-    assertEquals(pivot, a[p], "pivot value should sit at the returned index");
-    for (int i = 0; i < p; i++) {
-      assertTrue(a[i] <= pivot, "left side should be <= pivot at index " + i);
+    assertEquals(pivot, arr[pivotIndex], "pivot value should sit at the returned index");
+    for (int i = 0; i < pivotIndex; i++) {
+      assertTrue(arr[i] <= pivot, "left side should be <= pivot at index " + i);
     }
-    for (int i = p + 1; i < a.length; i++) {
-      assertTrue(a[i] >= pivot, "right side should be >= pivot at index " + i);
+    for (int i = pivotIndex + 1; i < arr.length; i++) {
+      assertTrue(arr[i] >= pivot, "right side should be >= pivot at index " + i);
     }
   }
 
   @Test
   public void singleElementReturnsZero() {
-    int[] a = {7};
-    assertEquals(0, Partition.partition(a));
+    int[] arr = {7};
+    assertEquals(0, Partition.partition(arr));
   }
 
   @Test
   public void singleElementStaysPut() {
-    int[] a = {7};
-    Partition.partition(a);
-    assertArrayEquals(new int[] {7}, a);
+    int[] arr = {7};
+    Partition.partition(arr);
+    assertArrayEquals(new int[] {7}, arr);
   }
 
   @Test
@@ -60,15 +61,15 @@ public class PartitionTest {
 
   @Test
   public void returnsThePivotsSortedPosition() {
-    int[] a = {3, 5, 8, 1, 2, 9, 4, 7, 6};
-    assertEquals(5, Partition.partition(a));
+    int[] arr = {3, 5, 8, 1, 2, 9, 4, 7, 6};
+    assertEquals(5, Partition.partition(arr));
   }
 
   @Test
   public void swapsOutOfPlacePairsAndThenPlacesThePivot() {
-    int[] a = {3, 5, 8, 1, 2, 9, 4, 7, 6};
-    Partition.partition(a);
-    assertArrayEquals(new int[] {3, 5, 4, 1, 2, 6, 8, 7, 9}, a);
+    int[] arr = {3, 5, 8, 1, 2, 9, 4, 7, 6};
+    Partition.partition(arr);
+    assertArrayEquals(new int[] {3, 5, 4, 1, 2, 6, 8, 7, 9}, arr);
   }
 
   @Test
@@ -85,7 +86,7 @@ public class PartitionTest {
   // spread across both sides and the pivot lands in the middle.
   @Test
   public void allEqualValuesSplitInTheMiddle() {
-    int[] a = {7, 7, 7, 7, 7, 7, 7, 7, 7};
-    assertEquals(4, Partition.partition(a));
+    int[] arr = {7, 7, 7, 7, 7, 7, 7, 7, 7};
+    assertEquals(4, Partition.partition(arr));
   }
 }

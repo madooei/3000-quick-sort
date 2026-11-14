@@ -9,50 +9,50 @@ public final class QuickSortLastElement {
 
   // Sorts a in ascending order, with the last element of each slice as the
   // pivot. Assumes a is not null.
-  public static void quicksort(int[] a) {
-    quicksort(a, 0, a.length - 1);
+  public static void quicksort(int[] arr) {
+    quicksort(arr, 0, arr.length - 1);
   }
 
-  // Sorts a[lo..hi] in ascending order.
-  private static void quicksort(int[] a, int lo, int hi) {
+  // Sorts arr[lo..hi] in ascending order.
+  private static void quicksort(int[] arr, int lo, int hi) {
     if (lo >= hi) {
-      return;                    // zero or one element: already sorted
+      return;                            // zero or one element: already sorted
     }
-    int p = partition(a, lo, hi);
-    quicksort(a, lo, p - 1);     // sort the left side
-    quicksort(a, p + 1, hi);     // sort the right side
+    int pivotIndex = partition(arr, lo, hi);
+    quicksort(arr, lo, pivotIndex - 1);  // sort the left side
+    quicksort(arr, pivotIndex + 1, hi);  // sort the right side
   }
 
-  // Partitions a[lo..hi] around a[hi] and returns the pivot's final index.
-  // Every value in a[lo..p-1] is at most the pivot, and every value in
-  // a[p+1..hi] is at least the pivot.
+  // Partitions arr[lo..hi] around arr[hi] and returns pivotIndex, the pivot's
+  // final index. Every value in arr[lo..pivotIndex-1] is at most the pivot,
+  // and every value in arr[pivotIndex+1..hi] is at least the pivot.
   // Pre: lo <= hi.
-  private static int partition(int[] a, int lo, int hi) {
-    int pivot = a[hi];   // the last element of the slice is the pivot
-    int l = lo;
-    int r = hi - 1;
+  private static int partition(int[] arr, int lo, int hi) {
+    int pivot = hi;       // index of the pivot, the last element of the slice
+    int left = lo;
+    int right = hi - 1;
 
-    while (l <= r) {
-      while (l <= r && a[l] < pivot) {
-        l++;
+    while (left <= right) {
+      while (left <= right && arr[left] < arr[pivot]) {
+        left++;
       }
-      while (l <= r && a[r] > pivot) {
-        r--;
+      while (left <= right && arr[right] > arr[pivot]) {
+        right--;
       }
-      if (l <= r) {
-        swap(a, l, r);
-        l++;
-        r--;
+      if (left <= right) {
+        swap(arr, left, right);
+        left++;
+        right--;
       }
     }
 
-    swap(a, l, hi);
-    return l;
+    swap(arr, left, pivot);
+    return left;
   }
 
-  private static void swap(int[] a, int i, int j) {
-    int temp = a[i];
-    a[i] = a[j];
-    a[j] = temp;
+  private static void swap(int[] arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
   }
 }
