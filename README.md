@@ -21,6 +21,10 @@ code/
         Partition.java                      # whole-array two-marker partition
         QuickSortLastElement.java           # quicksort with the last-element pivot
         QuickSortMedianOfThree.java         # quicksort with the median-of-three pivot
+      demo/                                 # one demo per class you implement
+        PartitionDemo.java
+        QuickSortLastElementDemo.java
+        QuickSortMedianOfThreeDemo.java
     test/
       quick/
         PartitionTest.java
@@ -29,12 +33,14 @@ code/
         QuickSortMedianOfThreeTest.java     # runs them against QuickSortMedianOfThree
   scripts/
     test.sh                                 # compile and run the JUnit tests
+    run.sh                                  # compile and run one demo
 ```
 
 ## How to compile and run
 
 - `scripts/test.sh` — compiles everything and runs the full JUnit suite.
 - `scripts/test.sh quick.QuickSortLastElementTest` — compiles everything and runs only that test class. Use this while you are working on one version and the other is still empty.
+- `scripts/run.sh demo.QuickSortLastElementDemo` — compiles everything and runs that one demo. Every class you implement has its own demo, `<Class>Demo`.
 
 ## What's here
 
@@ -43,3 +49,4 @@ code/
 - `quick.QuickSortMedianOfThree` — `quicksort`, with the median of three as the pivot. It uses the same private helpers, plus `medianIndex`, which returns the index of the median of three elements.
 - `quick.PartitionTest` — checks that the pivot lands in place, with no larger value to its left and no smaller value to its right, and checks the example the notes trace.
 - `quick.QuickSortTest` and its two subclasses — the sort scenarios, run once per version. `QuickSortLastElementTest` also checks the slice `partition`, and `QuickSortMedianOfThreeTest` checks `medianIndex`, both through reflection.
+- `demo.PartitionDemo`, `demo.QuickSortLastElementDemo`, and `demo.QuickSortMedianOfThreeDemo` — one demo per class, each on an example the notes trace.
