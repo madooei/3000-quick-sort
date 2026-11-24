@@ -42,7 +42,7 @@ code/
 - `scripts/test.sh quick.QuickSortLastElementTest` — compiles everything and runs only that test class. Use this while you are working on one version and the other is still empty.
 - `scripts/run.sh demo.QuickSortLastElementDemo` — compiles everything and runs that one demo. Every class you implement has its own demo, `<Class>Demo`.
 
-## What's here
+## Contents
 
 - `quick.Partition` — `partition`, the whole-array partition the notes trace.
 - `quick.QuickSortLastElement` — `quicksort`, with the last element of each slice as the pivot. It uses private helpers: a recursive `quicksort` that sorts a slice, and `partition` on a slice.
